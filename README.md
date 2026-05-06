@@ -33,22 +33,15 @@ A professional AI-powered proctoring service built with **FastAPI** and **YOLOv8
    git clone https://github.com/lengthanhdat/AuraAcademic_AI.git
    cd AuraAcademic_AI
    ```
-
-2. **Create a virtual environment**:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Run the service**:
-   ```bash
-   python main.py
-   ```
+# 2. Tạo môi trường ảo (virtual environment) để cài cắm thư viện không ảnh hưởng máy
+python -m venv venv
+# 3. Kích hoạt môi trường ảo vừa tạo (trên Windows)
+.\venv\Scripts\Activate.ps1
+# (Nếu lệnh trên báo lỗi không cho chạy script, hãy chạy lệnh này thay thế: venv\Scripts\activate.bat)
+# 4. Cài đặt các thư viện cần thiết (FastAPI, YOLO, OpenCV...)
+pip install -r requirements.txt
+# 5. Chạy server AI
+python main.py
    The server will start at `http://0.0.0.0:8001`.
 
 ## 📡 API Endpoints
