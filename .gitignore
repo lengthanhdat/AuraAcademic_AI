@@ -7,3 +7,29 @@ logs/
 .vscode/
 .idea/
 .env
+
+# Logs and general logs
+*.log
+
+# AG Kit & Code Review Graph (AI expansion)
+.code-review-graph/
+.agent/logs/
+.agent/memory/
+*.task.md
+
+# Python cache/testing artifacts
+.pytest_cache/
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+
+# AI Models, Large Weights & Data
+*.pt
+*.pth
+*.onnx
+*.pkl
+*.h5
+bin/
+data/
+
+
