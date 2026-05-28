@@ -1,0 +1,90 @@
+model_list:
+  - model_name: main-ai
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "os.environ/GEMINI_API_KEY_1"
+
+  - model_name: main-ai
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "os.environ/GEMINI_API_KEY_2"
+
+  - model_name: main-ai
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "os.environ/GEMINI_API_KEY_3"
+
+  - model_name: main-ai
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "os.environ/GEMINI_API_KEY_4"
+
+  - model_name: main-ai
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "os.environ/GEMINI_API_KEY_5"
+
+  - model_name: backup-ai
+    litellm_params:
+      model: groq/meta-llama/llama-4-scout-17b-16e-instruct
+      api_key: "os.environ/GROQ_API_KEY_1"
+
+  - model_name: backup-ai
+    litellm_params:
+      model: groq/meta-llama/llama-4-scout-17b-16e-instruct
+      api_key: "os.environ/GROQ_API_KEY_2"
+
+  - model_name: backup-ai
+    litellm_params:
+      model: groq/meta-llama/llama-4-scout-17b-16e-instruct
+      api_key: "os.environ/GROQ_API_KEY_3"
+
+  - model_name: backup-ai
+    litellm_params:
+      model: groq/meta-llama/llama-4-scout-17b-16e-instruct
+      api_key: "os.environ/GROQ_API_KEY_4"
+
+  - model_name: backup-ai
+    litellm_params:
+      model: groq/meta-llama/llama-4-scout-17b-16e-instruct
+      api_key: "os.environ/GROQ_API_KEY_5"
+
+  - model_name: vision-ai
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "os.environ/GEMINI_API_KEY_1"
+
+  - model_name: vision-ai
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "os.environ/GEMINI_API_KEY_2"
+
+  - model_name: vision-ai
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "os.environ/GEMINI_API_KEY_3"
+
+  - model_name: vision-ai
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "os.environ/GEMINI_API_KEY_4"
+
+  - model_name: vision-ai
+    litellm_params:
+      model: gemini/gemini-2.0-flash
+      api_key: "os.environ/GEMINI_API_KEY_5"
+
+router_settings:
+  routing_strategy: usage-based-routing-v2
+  fallbacks:
+    - {"main-ai": ["backup-ai"]}
+    - {"vision-ai": ["backup-ai"]}
+  num_retries: 3
+  request_timeout: 120
+
+general_settings:
+  master_key: "sk-litellm-aura-academic-2026"
+
+litellm_settings:
+  set_verbose: false
+  drop_params: true

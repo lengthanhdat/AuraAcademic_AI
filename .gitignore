@@ -1,35 +1,19 @@
-venv/
-.venv/
-__pycache__/
-*.pyc
-videos/
-logs/
-.vscode/
-.idea/
+# BẢO MẬT — Không commit file này lên Git!
 .env
 
-# Logs and general logs
-*.log
-
-# AG Kit & Code Review Graph (AI expansion)
-.code-review-graph/
-.agent/logs/
-.agent/memory/
-*.task.md
-
-# Python cache/testing artifacts
-.pytest_cache/
-.ipynb_checkpoints/
+# Python cache
 __pycache__/
 *.pyc
+*.pyo
 
-# AI Models, Large Weights & Data
-*.pt
-*.pth
-*.onnx
-*.pkl
-*.h5
-bin/
-data/
+# LiteLLM database cache
+litellm.db
+*.db
 
+# Virtual environments
+venv/
+env/
+.venv/
 
+# Local media / temporary outputs
+videos/
