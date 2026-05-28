@@ -1,27 +1,32 @@
 model_list:
   - model_name: main-ai
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
       api_key: "os.environ/GEMINI_API_KEY_1"
 
   - model_name: main-ai
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
       api_key: "os.environ/GEMINI_API_KEY_2"
 
   - model_name: main-ai
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
       api_key: "os.environ/GEMINI_API_KEY_3"
 
   - model_name: main-ai
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
       api_key: "os.environ/GEMINI_API_KEY_4"
 
   - model_name: main-ai
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
       api_key: "os.environ/GEMINI_API_KEY_5"
 
   - model_name: backup-ai
@@ -51,27 +56,32 @@ model_list:
 
   - model_name: vision-ai
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
       api_key: "os.environ/GEMINI_API_KEY_1"
 
   - model_name: vision-ai
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
       api_key: "os.environ/GEMINI_API_KEY_2"
 
   - model_name: vision-ai
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
       api_key: "os.environ/GEMINI_API_KEY_3"
 
   - model_name: vision-ai
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
       api_key: "os.environ/GEMINI_API_KEY_4"
 
   - model_name: vision-ai
     litellm_params:
-      model: gemini/gemini-2.0-flash
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
       api_key: "os.environ/GEMINI_API_KEY_5"
 
 router_settings:

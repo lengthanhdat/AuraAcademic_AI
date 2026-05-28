@@ -17,3 +17,6 @@ env/
 
 # Local media / temporary outputs
 videos/
+
+# Node dependencies
+node_modules/

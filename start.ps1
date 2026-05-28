@@ -24,8 +24,5 @@ if (Test-Path .env) {
 $env:UI_USERNAME = 'admin'
 $env:UI_PASSWORD = $env:LITELLM_MASTER_KEY
 
-# Use SQLite as local database (no PostgreSQL needed)
-$env:DATABASE_URL = 'sqlite:///./litellm.db'
-
 Write-Host "Starting LiteLLM Proxy at http://localhost:4000 ..." -ForegroundColor Cyan
 litellm --config litellm_config.yaml --port 4000
