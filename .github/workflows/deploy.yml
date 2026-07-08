@@ -40,12 +40,16 @@ jobs:
               fi
             fi
             
+            # Clean up disk space
+            sudo apt-get clean
+            rm -rf ~/.cache/pip
+            
             cd /opt/aura-ai
             git fetch origin main
             git reset --hard origin/main
 
             source venv/bin/activate
-            pip install -r requirements.txt -q
+            pip install --no-cache-dir -r requirements.txt -q
 
             pm2 restart aura-ai || pm2 start \
               "bash -c 'cd /opt/aura-ai && source venv/bin/activate && python main.py'" \
