@@ -1,0 +1,44 @@
+name: Deploy AI Service → EC2 GPU
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to EC2 GPU
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to EC2 GPU via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.AI_EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          command_timeout: 5m
+          script: |
+            set -e
+            cd /opt/aura-ai
+            git fetch origin main
+            git reset --hard origin/main
+
+            source venv/bin/activate
+            pip install -r requirements.txt -q
+
+            pm2 restart aura-ai || pm2 start \
+              "bash -c 'cd /opt/aura-ai && source venv/bin/activate && python main.py'" \
+              --name "aura-ai"
+
+            pm2 restart aura-litellm || pm2 start \
+              "bash -c 'cd /opt/aura-ai && source venv/bin/activate && litellm --config litellm_config.yaml --port 4000'" \
+              --name "aura-litellm"
+
+            pm2 save
+            sleep 5
+            curl -f http://localhost:8001/docs && echo "✅ AI deployed!" || echo "❌ Health check failed"
