@@ -24,6 +24,22 @@ jobs:
           command_timeout: 5m
           script: |
             set -e
+            if [ ! -d "/opt/aura-ai" ]; then
+              echo "Cloning repo for the first time..."
+              sudo mkdir -p /opt/aura-ai
+              sudo chown -R $USER:$USER /opt/aura-ai
+              git clone https://github.com/lengthanhdat/AuraAcademic_AI.git /opt/aura-ai
+              cd /opt/aura-ai
+              sudo apt-get update
+              sudo apt-get install -y python3-venv
+              python3 -m venv venv
+              if ! command -v pm2 &> /dev/null; then
+                curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+                sudo apt-get install -y nodejs
+                sudo npm install -g pm2
+              fi
+            fi
+            
             cd /opt/aura-ai
             git fetch origin main
             git reset --hard origin/main
