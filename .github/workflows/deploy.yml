@@ -40,6 +40,11 @@ jobs:
               fi
             fi
             
+            # Auto-resize partition in case EBS was expanded but OS didn't catch up
+            sudo growpart /dev/nvme0n1 1 || true
+            sudo resize2fs /dev/nvme0n1p1 || true
+            sudo resize2fs /dev/root || true
+            
             # Clean up disk space
             sudo apt-get clean
             rm -rf ~/.cache/pip
