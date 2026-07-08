@@ -93,7 +93,7 @@ router_settings:
   request_timeout: 120
 
 general_settings:
-  master_key: "sk-litellm-aura-academic-2026"
+  # master_key removed to avoid prisma db requirement
 
 litellm_settings:
   set_verbose: false
