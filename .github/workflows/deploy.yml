@@ -56,13 +56,13 @@ jobs:
             source venv/bin/activate
             pip install --no-cache-dir -r requirements.txt -q
 
-            pm2 restart aura-ai || pm2 start \
-              "bash -c 'cd /opt/aura-ai && source venv/bin/activate && python main.py'" \
-              --name "aura-ai"
+            pm2 restart aura-ai || pm2 start bash \
+              --name "aura-ai" \
+              -- -c 'cd /opt/aura-ai && source venv/bin/activate && python main.py'
 
-            pm2 restart aura-litellm || pm2 start \
-              "bash -c 'cd /opt/aura-ai && source venv/bin/activate && litellm --config litellm_config.yaml --port 4000'" \
-              --name "aura-litellm"
+            pm2 restart aura-litellm || pm2 start bash \
+              --name "aura-litellm" \
+              -- -c 'cd /opt/aura-ai && source venv/bin/activate && litellm --config litellm_config.yaml --port 4000'
 
             pm2 save
             sleep 5
