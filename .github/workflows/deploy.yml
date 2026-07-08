@@ -80,5 +80,30 @@ jobs:
               -- -c 'cd /opt/aura-ai && source venv/bin/activate && set -a && source .env && set +a && litellm --config litellm_config.yaml --port 4000'
 
             pm2 save
-            sleep 5
-            curl -f http://localhost:8001/docs && echo "✅ AI deployed!" || echo "❌ Health check failed"
+            
+            echo "Waiting for services to start..."
+            for i in {1..6}; do
+              sleep 5
+              if curl -s -f http://localhost:8001/docs > /dev/null; then
+                echo "✅ aura-ai (FastAPI) is up!"
+                break
+              fi
+              echo "Waiting for aura-ai..."
+            done
+
+            for i in {1..6}; do
+              sleep 5
+              if curl -s -f http://localhost:4000/health > /dev/null; then
+                echo "✅ aura-litellm is up!"
+                break
+              fi
+              echo "Waiting for aura-litellm..."
+            done
+
+            if curl -s -f http://localhost:8001/docs > /dev/null && curl -s -f http://localhost:4000/health > /dev/null; then
+              echo "✅ All services deployed successfully!"
+            else
+              echo "❌ Health check failed. Dumping PM2 logs:"
+              pm2 logs --lines 50 --nostream
+              exit 1
+            fi
