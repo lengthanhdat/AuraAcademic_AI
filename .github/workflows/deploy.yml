@@ -69,10 +69,10 @@ jobs:
             GROQ_API_KEY_4=${{ secrets.GROQ_API_KEY }}
             GROQ_API_KEY_5=${{ secrets.GROQ_API_KEY }}
             ENV_EOF
-
-            pm2 restart aura-ai || pm2 start bash \
+            pm2 delete aura-ai || true
+            pm2 start bash \
               --name "aura-ai" \
-              -- -c 'cd /opt/aura-ai && source venv/bin/activate && python main.py'
+              -- -c 'cd /opt/aura-ai && source venv/bin/activate && export BACKEND_API_URL="${{ secrets.BACKEND_API_URL }}" && python main.py'
 
             pm2 delete aura-litellm || true
             pm2 start bash \
