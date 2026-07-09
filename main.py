@@ -200,8 +200,9 @@ async def websocket_endpoint(websocket: WebSocket, exam_code: str, student_id: s
                     }
 
                     try:
+                        backend_url = os.getenv("BACKEND_API_URL", "http://localhost:8080")
                         requests.post(
-                            f"http://localhost:8088/api/exams/{exam_code}/violation",
+                            f"{backend_url}/api/exams/{exam_code}/violation",
                             json=payload,
                             headers={"Content-Type": "application/json"},
                             timeout=10
