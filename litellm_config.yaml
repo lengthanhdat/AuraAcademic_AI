@@ -1,4 +1,10 @@
 model_list:
+  - model_name: gemini-2.5-flash
+    litellm_params:
+      model: gemini/gemini-2.5-flash
+      thinking: {"type": "disabled", "budget_tokens": 0}
+      api_key: "os.environ/GEMINI_API_KEY_1"
+
   - model_name: main-ai
     litellm_params:
       model: gemini/gemini-2.5-flash
