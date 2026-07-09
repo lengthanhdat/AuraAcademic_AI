@@ -57,7 +57,7 @@ jobs:
             pip install --no-cache-dir -r requirements.txt -q
 
             # Create .env file for LiteLLM
-            cat <<ENV_EOF > .env
+            cat <<EOF > .env
             GEMINI_API_KEY_1=${{ secrets.GEMINI_API_KEY }}
             GEMINI_API_KEY_2=${{ secrets.GEMINI_API_KEY }}
             GEMINI_API_KEY_3=${{ secrets.GEMINI_API_KEY }}
@@ -68,7 +68,7 @@ jobs:
             GROQ_API_KEY_3=${{ secrets.GROQ_API_KEY }}
             GROQ_API_KEY_4=${{ secrets.GROQ_API_KEY }}
             GROQ_API_KEY_5=${{ secrets.GROQ_API_KEY }}
-            ENV_EOF
+EOF
             pm2 delete aura-ai || true
             pm2 start bash \
               --name "aura-ai" \
