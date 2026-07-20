@@ -48,7 +48,10 @@ def check_head_pose(keypoints):
         r_eye = pts[2]
         
         nose_conf = nose[2]
-        if nose_conf < 0.3:
+        l_eye_conf = l_eye[2]
+        r_eye_conf = r_eye[2]
+        
+        if nose_conf < 0.45 or (l_eye_conf < 0.4 and r_eye_conf < 0.4):
             return "head_down_deep"
             
         dist_nose_le = np.linalg.norm(nose[:2] - l_eye[:2])
@@ -56,7 +59,7 @@ def check_head_pose(keypoints):
         
         if dist_nose_le > 0 and dist_nose_re > 0:
             ratio = dist_nose_le / dist_nose_re
-            # Nới lỏng nhẹ: > 1.4 hoặc < 0.7 là quay mặt (để dễ test hơn)
+            # Nới lỏng nhẹ: > 1.4 hoặc < 0.7 là quay mặt
             if ratio > 1.4:
                 return "looking_right"
             elif ratio < 0.7:
@@ -67,10 +70,16 @@ def check_head_pose(keypoints):
         vertical_dist = nose_y - avg_eye_y
         
         eye_dist = np.linalg.norm(l_eye[:2] - r_eye[:2])
-        # Nới lỏng: Người dùng bình thường có thể có tỉ lệ ~ 0.4 - 0.6 tùy góc camera.
-        # Chỉ khi cúi gập hẳn xuống (tỉ lệ < 0.25) mới tính là cúi nhìn tài liệu.
-        if eye_dist > 0 and vertical_dist / eye_dist < 0.25:
-            return "looking_down"
+        
+        if eye_dist > 0:
+            # Detect head tilt (e.g. resting head on desk)
+            eye_tilt = abs(l_eye[1] - r_eye[1]) / eye_dist
+            if eye_tilt > 0.45:
+                return "head_down_deep"
+                
+            # Detect looking down (ratio of vertical distance to eye distance)
+            if vertical_dist / eye_dist < 0.35: # Tăng lên 0.35 để nhạy hơn với việc cúi xuống
+                return "looking_down"
             
     except Exception as e:
         pass
@@ -117,9 +126,10 @@ async def websocket_endpoint(websocket: WebSocket, exam_code: str, student_id: s
             for box in det_results.boxes:
                 cls_id = int(box.cls[0])
                 conf = float(box.conf[0])
-                if conf > 0.45:
-                    if cls_id == 0: person_count += 1
-                    elif cls_id == 67: phone_detected = True
+                if cls_id == 0 and conf > 0.50: 
+                    person_count += 1
+                elif cls_id == 67 and conf > 0.25: # Giảm threshold để dễ bắt điện thoại hơn
+                    phone_detected = True
                         
             if person_count == 0: violations_in_frame.add("no_face")
             elif person_count > 1: violations_in_frame.add("multiple_faces")
