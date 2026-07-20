@@ -81,7 +81,7 @@ $jobLite = Start-Job -ScriptBlock {
     $env:PYTHONIOENCODING = 'utf-8'
     $env:UI_USERNAME = $username
     $env:UI_PASSWORD = $password
-    & ".\venv\Scripts\litellm.exe" --config litellm_config.yaml --port 4000 2>&1
+    litellm --config litellm_config.yaml --port 4000 2>&1
 } -ArgumentList $currentDir, $env:UI_USERNAME, $env:UI_PASSWORD
 
 # Start YOLOv8 Proctoring Server
